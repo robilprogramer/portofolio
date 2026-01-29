@@ -1,12 +1,6 @@
 "use client"
-
-import * as React from "react"
-import Link from "next/link"
-import { Heart } from "lucide-react"
-
 export function AdminFooter() {
   const currentYear = new Date().getFullYear()
-
   return (
     <footer className="border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
       <div className="mx-auto max-w-7xl px-4 py-6 lg:px-6">

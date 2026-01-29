@@ -16,6 +16,14 @@ export const metadata: Metadata = {
   keywords: ["portfolio", "developer", "full-stack", "web development", "react", "next.js"],
   authors: [{ name: "Robil" }],
   creator: "Robil",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",

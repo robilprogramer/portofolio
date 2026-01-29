@@ -20,7 +20,6 @@ export function AdminHeader({ onMobileMenuClick }: AdminHeaderProps) {
   const { data: session } = useSession()
   const [searchQuery, setSearchQuery] = React.useState("")
 
-  // Generate breadcrumbs from pathname
   const getBreadcrumbs = () => {
     const paths = pathname.split("/").filter(Boolean)
     const breadcrumbs = paths.map((path, index) => {
