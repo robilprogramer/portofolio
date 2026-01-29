@@ -1,0 +1,336 @@
+  // Prisma Schema for Dynamic Portfolio
+  // Supports PostgreSQL, MySQL, or SQLite
+
+  generator client {
+    provider = "prisma-client-js"
+  }
+
+  datasource db {
+    provider = "postgresql"
+  }
+
+  // ==================== USER & AUTH ====================
+  model User {
+    id            String    @id @default(cuid())
+    email         String    @unique
+    password      String
+    name          String
+    role          Role      @default(ADMIN)
+    avatar        String?
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    // Relations
+    projects      Project[]
+    posts         Post[]
+    experiences   Experience[]
+    educations    Education[]
+    skills        Skill[]
+    certificates  Certificate[]
+    testimonials  Testimonial[]
+    socialLinks   SocialLink[]
+    messages      Message[]
+    
+    @@map("users")
+  }
+
+  enum Role {
+    ADMIN
+    SUPER_ADMIN
+  }
+
+  // ==================== PROFILE / ABOUT ====================
+  model Profile {
+    id            String    @id @default(cuid())
+    name          String
+    title         String    // e.g., "Full Stack Developer"
+    bio           String    
+    shortBio      String?   
+    avatar        String?
+    resumeUrl     String?
+    location      String?
+    email         String?
+    phone         String?
+    isAvailable   Boolean   @default(true)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    @@map("profiles")
+  }
+
+  // ==================== PROJECTS ====================
+  model Project {
+    id            String    @id @default(cuid())
+    title         String
+    slug          String    @unique
+    description   String    
+    shortDesc     String?   
+    thumbnail     String?
+    images        String[]  // Array of image URLs
+    liveUrl       String?
+    githubUrl     String?
+    techStack     String[]  // Array of technologies
+    category      String?   // e.g., "Web App", "Mobile", "API"
+    featured      Boolean   @default(false)
+    status        ProjectStatus @default(COMPLETED)
+    startDate     DateTime?
+    endDate       DateTime?
+    order         Int       @default(0)
+    isPublished   Boolean   @default(true)
+    views         Int       @default(0)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    // Relations
+    userId        String
+    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    
+    @@index([slug])
+    @@index([userId])
+    @@map("projects")
+  }
+
+  enum ProjectStatus {
+    IN_PROGRESS
+    COMPLETED
+    ON_HOLD
+    ARCHIVED
+  }
+
+  // ==================== BLOG POSTS ====================
+  model Post {
+    id            String    @id @default(cuid())
+    title         String
+    slug          String    @unique
+    excerpt       String?   
+    content       String    
+    thumbnail     String?
+    tags          String[]
+    category      String?
+    featured      Boolean   @default(false)
+    isPublished   Boolean   @default(false)
+    publishedAt   DateTime?
+    views         Int       @default(0)
+    readTime      Int?      // in minutes
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    // Relations
+    userId        String
+    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    
+    @@index([slug])
+    @@index([userId])
+    @@map("posts")
+  }
+
+  // ==================== EXPERIENCE ====================
+  model Experience {
+    id            String    @id @default(cuid())
+    company       String
+    position      String
+    description   String?   
+    location      String?
+    type          EmploymentType @default(FULL_TIME)
+    startDate     DateTime
+    endDate       DateTime?
+    isCurrent     Boolean   @default(false)
+    technologies  String[]
+    achievements  String[]
+    companyLogo   String?
+    order         Int       @default(0)
+    isPublished   Boolean   @default(true)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    // Relations
+    userId        String
+    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    
+    @@index([userId])
+    @@map("experiences")
+  }
+
+  enum EmploymentType {
+    FULL_TIME
+    PART_TIME
+    CONTRACT
+    FREELANCE
+    INTERNSHIP
+  }
+
+  // ==================== EDUCATION ====================
+  model Education {
+    id            String    @id @default(cuid())
+    institution   String
+    degree        String
+    field         String    // Field of study
+    description   String?   
+    location      String?
+    gpa           Float?
+    startDate     DateTime
+    endDate       DateTime?
+    isCurrent     Boolean   @default(false)
+    achievements  String[]
+    logo          String?
+    order         Int       @default(0)
+    isPublished   Boolean   @default(true)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    // Relations
+    userId        String
+    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    
+    @@index([userId])
+    @@map("educations")
+  }
+
+  // ==================== SKILLS ====================
+  model Skill {
+    id            String    @id @default(cuid())
+    name          String
+    category      SkillCategory
+    level         Int       @default(80) // 0-100 proficiency
+    icon          String?   // Icon name or URL
+    color         String?   // Hex color
+    order         Int       @default(0)
+    isPublished   Boolean   @default(true)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    // Relations
+    userId        String
+    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    
+    @@index([userId])
+    @@map("skills")
+  }
+
+  enum SkillCategory {
+    FRONTEND
+    BACKEND
+    DATABASE
+    DEVOPS
+    MOBILE
+    TOOLS
+    SOFT_SKILLS
+    OTHER
+  }
+
+  // ==================== CERTIFICATES ====================
+  model Certificate {
+    id            String    @id @default(cuid())
+    name          String
+    issuer        String
+    description   String?   
+    credentialId  String?
+    credentialUrl String?
+    issueDate     DateTime
+    expiryDate    DateTime?
+    image         String?
+    order         Int       @default(0)
+    isPublished   Boolean   @default(true)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    // Relations
+    userId        String
+    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    
+    @@index([userId])
+    @@map("certificates")
+  }
+
+  // ==================== TESTIMONIALS ====================
+  model Testimonial {
+    id            String    @id @default(cuid())
+    name          String
+    position      String
+    company       String?
+    content       String    
+    avatar        String?
+    rating        Int?      @default(5) // 1-5
+    featured      Boolean   @default(false)
+    order         Int       @default(0)
+    isPublished   Boolean   @default(true)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    // Relations
+    userId        String
+    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    
+    @@index([userId])
+    @@map("testimonials")
+  }
+
+  // ==================== SOCIAL LINKS ====================
+  model SocialLink {
+    id            String    @id @default(cuid())
+    platform      String    // e.g., "GitHub", "LinkedIn", "Twitter"
+    url           String
+    icon          String?
+    order         Int       @default(0)
+    isPublished   Boolean   @default(true)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    // Relations
+    userId        String
+    user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    
+    @@index([userId])
+    @@map("social_links")
+  }
+
+  // ==================== CONTACT MESSAGES ====================
+  model Message {
+    id            String    @id @default(cuid())
+    name          String
+    email         String
+    subject       String?
+    content       String    
+    isRead        Boolean   @default(false)
+    isArchived    Boolean   @default(false)
+    isStarred     Boolean   @default(false)
+    repliedAt     DateTime?
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    // Relations
+    userId        String?
+    user          User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+    
+    @@index([userId])
+    @@map("messages")
+  }
+
+  // ==================== SITE SETTINGS ====================
+  model Setting {
+    id            String    @id @default(cuid())
+    key           String    @unique
+    value         String    
+    type          String    @default("string") // string, number, boolean, json
+    description   String?
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt
+    
+    @@map("settings")
+  }
+
+  // ==================== ANALYTICS ====================
+  model PageView {
+    id            String    @id @default(cuid())
+    path          String
+    referrer      String?
+    userAgent     String?
+    ip            String?
+    country       String?
+    city          String?
+    createdAt     DateTime  @default(now())
+    
+    @@index([path])
+    @@index([createdAt])
+    @@map("page_views")
+  }
