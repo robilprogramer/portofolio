@@ -57,8 +57,8 @@ export async function GET(req: Request) {
     // Tambahkan default value jika field kosong
     const responseProfile = {
       ...profile,
-      yearsExperience: 999,
-      projectsCompleted: 999,
+      yearsExperience: 7,
+      projectsCompleted: 99,
       happyClients: 99,
     };
 
