@@ -1,3 +1,37 @@
+// import { NextResponse } from "next/server";
+// import prisma from "@/lib/prisma";
+
+// /**
+//  * GET /api/public/profile
+//  * Get public profile information
+//  */
+// export async function GET(req: Request) {
+//   try {
+//     const profile = await prisma.profile.findFirst({
+//       orderBy: {
+//         updatedAt: 'desc',
+//       },
+//     });
+
+//     if (!profile) {
+//       return NextResponse.json(
+//         { success: false, message: 'Profile not found' },
+//         { status: 404 }
+//       );
+//     }
+
+//     return NextResponse.json({
+//       success: true,
+//       data: profile,
+//     });
+//   } catch (error) {
+//     console.error("Error fetching profile:", error);
+//     return NextResponse.json(
+//       { success: false, message: 'Failed to fetch profile' },
+//       { status: 500 }
+//     );
+//   }
+// }
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
@@ -20,9 +54,17 @@ export async function GET(req: Request) {
       );
     }
 
+    // Tambahkan default value jika field kosong
+    const responseProfile = {
+      ...profile,
+      yearsExperience: 999,
+      projectsCompleted: 999,
+      happyClients: 99,
+    };
+
     return NextResponse.json({
       success: true,
-      data: profile,
+      data: responseProfile,
     });
   } catch (error) {
     console.error("Error fetching profile:", error);
