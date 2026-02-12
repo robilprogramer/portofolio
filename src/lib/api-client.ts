@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "/api/admin"
+const API_URL = process.env.NEXT_PUBLIC_API_URL_ADMIN || "/api/admin"
 
 interface FetchOptions extends RequestInit {
   params?: Record<string, string | number | boolean | undefined>
