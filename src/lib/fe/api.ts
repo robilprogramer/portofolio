@@ -43,6 +43,17 @@ class ApiError extends Error {
     this.name = 'ApiError'
   }
 }
+// Type for paginated API responses where data array and pagination are at root level
+interface PaginatedApiResponse<T> {
+  success: boolean
+  data: T[]
+  pagination: {
+    total: number
+    page: number
+    limit: number
+    totalPages: number
+  }
+}
 
 async function fetchApi<T>(
   endpoint: string,
@@ -94,7 +105,20 @@ export const profileApi = {
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const projectsApi = {
-  async getAll(filters?: ProjectFilters): Promise<PaginatedResponse<Project>> {
+  // async getAll(filters?: ProjectFilters): Promise<PaginatedResponse<Project>> {
+  //   const params = new URLSearchParams()
+  //   if (filters?.page) params.append('page', String(filters.page))
+  //   if (filters?.limit) params.append('limit', String(filters.limit))
+  //   if (filters?.category) params.append('category', filters.category)
+  //   if (filters?.featured !== undefined) params.append('featured', String(filters.featured))
+
+  //   const queryString = params.toString()
+  //   const endpoint = `/projects${queryString ? `?${queryString}` : ''}`
+    
+  //   const response = await fetchApi<ApiResponse<PaginatedResponse<Project>>>(endpoint)
+  //   return response.data
+  // },
+ async getAll(filters?: ProjectFilters): Promise<PaginatedResponse<Project>> {
     const params = new URLSearchParams()
     if (filters?.page) params.append('page', String(filters.page))
     if (filters?.limit) params.append('limit', String(filters.limit))
@@ -104,10 +128,13 @@ export const projectsApi = {
     const queryString = params.toString()
     const endpoint = `/projects${queryString ? `?${queryString}` : ''}`
     
-    const response = await fetchApi<ApiResponse<PaginatedResponse<Project>>>(endpoint)
-    return response.data
+    // API returns { success, data: Project[], pagination } at root level
+    const response = await fetchApi<PaginatedApiResponse<Project>>(endpoint)
+    return {
+      data: response.data,
+      pagination: response.pagination,
+    }
   },
-
   async getBySlug(slug: string): Promise<Project> {
     const response = await fetchApi<ApiResponse<Project>>(`/projects/${slug}`)
     return response.data
@@ -130,7 +157,21 @@ export const projectsApi = {
 // ═══════════════════════════════════════════════════════════════════════════
 
 export const postsApi = {
-  async getAll(filters?: BlogPostFilters): Promise<PaginatedResponse<BlogPost>> {
+  // async getAll(filters?: BlogPostFilters): Promise<PaginatedResponse<BlogPost>> {
+  //   const params = new URLSearchParams()
+  //   if (filters?.page) params.append('page', String(filters.page))
+  //   if (filters?.limit) params.append('limit', String(filters.limit))
+  //   if (filters?.category) params.append('category', filters.category)
+  //   if (filters?.tag) params.append('tag', filters.tag)
+  //   if (filters?.featured !== undefined) params.append('featured', String(filters.featured))
+
+  //   const queryString = params.toString()
+  //   const endpoint = `/posts${queryString ? `?${queryString}` : ''}`
+    
+  //   const response = await fetchApi<ApiResponse<PaginatedResponse<BlogPost>>>(endpoint)
+  //   return response.data
+  // },
+ async getAll(filters?: BlogPostFilters): Promise<PaginatedResponse<BlogPost>> {
     const params = new URLSearchParams()
     if (filters?.page) params.append('page', String(filters.page))
     if (filters?.limit) params.append('limit', String(filters.limit))
@@ -141,10 +182,12 @@ export const postsApi = {
     const queryString = params.toString()
     const endpoint = `/posts${queryString ? `?${queryString}` : ''}`
     
-    const response = await fetchApi<ApiResponse<PaginatedResponse<BlogPost>>>(endpoint)
-    return response.data
+    const response = await fetchApi<PaginatedApiResponse<BlogPost>>(endpoint)
+    return {
+      data: response.data,
+      pagination: response.pagination,
+    }
   },
-
   async getBySlug(slug: string): Promise<BlogPost> {
     const response = await fetchApi<ApiResponse<BlogPost>>(`/posts/${slug}`)
     return response.data

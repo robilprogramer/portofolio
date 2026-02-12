@@ -121,3 +121,191 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PORTFOLIO CUSTOM STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth theme transitions */
+body,
+body * {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Prevent transition on page load */
+.preload-transitions * {
+  transition: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCROLLBAR STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.5 0 0 / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.5 0 0 / 0.5);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.5 0 0 / 0.3) var(--muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SELECTION STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+::selection {
+  background: oklch(0.6 0.2 280 / 0.3);
+  color: var(--foreground);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ANIMATION UTILITIES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* Staggered animation delays */
+.animation-delay-100 { animation-delay: 100ms; }
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-400 { animation-delay: 400ms; }
+.animation-delay-500 { animation-delay: 500ms; }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FOCUS STYLES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+*:focus-visible {
+  outline: 2px solid oklch(0.6 0.2 280);
+  outline-offset: 2px;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Glass effect */
+.glass {
+  background: oklch(from var(--card) l c h / 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Glow effects */
+.glow {
+  box-shadow: 0 0 40px oklch(0.6 0.2 280 / 0.3);
+}
+
+.glow-sm {
+  box-shadow: 0 0 20px oklch(0.6 0.2 280 / 0.2);
+}
+
+.glow-lg {
+  box-shadow: 0 0 60px oklch(0.6 0.2 280 / 0.4);
+}

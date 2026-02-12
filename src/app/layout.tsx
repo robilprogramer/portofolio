@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/components/providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://yourportfolio.com",
+    url: "https://robil.dev.com",
     title: "Portfolio | Full Stack Developer",
     description: "A professional portfolio showcasing projects, skills, and experience.",
     siteName: "Portfolio",
@@ -52,7 +53,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`} suppressHydrationWarning>
-        {children}
+         <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

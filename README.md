@@ -5,6 +5,7 @@ A modern, dynamic portfolio website built with Next.js 15, featuring an elegant 
 ## ✨ Features
 
 ### Public Portfolio
+
 - 🎨 Beautiful, responsive design with smooth animations
 - 📱 Mobile-first approach
 - 🌓 Dark/Light mode support
@@ -12,6 +13,7 @@ A modern, dynamic portfolio website built with Next.js 15, featuring an elegant 
 - 🔍 SEO optimized
 
 ### Admin Dashboard
+
 - 🔐 Secure authentication with NextAuth.js
 - 📊 Dashboard with analytics overview
 - 📁 Project management (CRUD)
@@ -25,6 +27,7 @@ A modern, dynamic portfolio website built with Next.js 15, featuring an elegant 
 - ⚙️ Site settings
 
 ### Database
+
 - 🗄️ Prisma ORM with PostgreSQL/MySQL/SQLite support
 - 🔄 Easy migrations
 - 🌱 Seed data for quick start
@@ -70,53 +73,55 @@ portfolio-nextjs/
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - PostgreSQL (or MySQL/SQLite)
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/yourusername/portfolio-nextjs.git
    cd portfolio-nextjs
    ```
-
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
-
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env
    ```
-   
+
    Edit `.env` with your configuration:
+
    ```env
    DATABASE_URL="postgresql://user:password@localhost:5432/portfolio"
    NEXTAUTH_URL="http://localhost:3000"
    NEXTAUTH_SECRET="your-secret-key"
    ```
-
 4. **Set up the database**
+
    ```bash
    # Generate Prisma client
    npx prisma generate
-   
+
    # Run migrations
    npx prisma migrate dev --name init
-   
+
    # Seed the database
    npx prisma db seed
    ```
-
 5. **Start the development server**
+
    ```bash
    npm run dev
    ```
-
 6. **Open your browser**
+
    - Portfolio: [http://localhost:3000](http://localhost:3000)
    - Admin: [http://localhost:3000/admin](http://localhost:3000/admin)
 
@@ -133,21 +138,21 @@ Password: admin123
 
 The database includes the following models:
 
-| Model | Description |
-|-------|-------------|
-| User | Admin users for authentication |
-| Profile | Portfolio profile information |
-| Project | Portfolio projects |
-| Post | Blog posts |
-| Experience | Work experience entries |
-| Education | Education history |
-| Skill | Technical skills |
-| Certificate | Professional certificates |
-| Testimonial | Client testimonials |
-| SocialLink | Social media links |
-| Message | Contact form messages |
-| Setting | Site configuration |
-| PageView | Analytics data |
+| Model       | Description                    |
+| ----------- | ------------------------------ |
+| User        | Admin users for authentication |
+| Profile     | Portfolio profile information  |
+| Project     | Portfolio projects             |
+| Post        | Blog posts                     |
+| Experience  | Work experience entries        |
+| Education   | Education history              |
+| Skill       | Technical skills               |
+| Certificate | Professional certificates      |
+| Testimonial | Client testimonials            |
+| SocialLink  | Social media links             |
+| Message     | Contact form messages          |
+| Setting     | Site configuration             |
+| PageView    | Analytics data                 |
 
 ## 🔧 Configuration
 
@@ -156,15 +161,19 @@ The database includes the following models:
 The project supports multiple database providers:
 
 **PostgreSQL (Recommended for production)**
+
 ```env
 DATABASE_URL="postgresql://user:password@localhost:5432/portfolio"
 ```
 
 **MySQL**
+
 ```env
 DATABASE_URL="mysql://user:password@localhost:3306/portfolio"
 ```
+
 Update `prisma/schema.prisma`:
+
 ```prisma
 datasource db {
   provider = "mysql"
@@ -173,10 +182,13 @@ datasource db {
 ```
 
 **SQLite (For development)**
+
 ```env
 DATABASE_URL="file:./dev.db"
 ```
+
 Update `prisma/schema.prisma`:
+
 ```prisma
 datasource db {
   provider = "sqlite"
@@ -216,11 +228,13 @@ CMD ["npm", "start"]
 ## 📝 API Routes
 
 ### Authentication
+
 - `POST /api/auth/signin` - Sign in
 - `POST /api/auth/signout` - Sign out
 - `GET /api/auth/session` - Get session
 
 ### Admin API
+
 - `GET/POST /api/admin/projects` - List/Create projects
 - `GET/PUT/DELETE /api/admin/projects/[id]` - Single project operations
 - Similar routes for posts, experience, education, etc.
@@ -230,6 +244,7 @@ CMD ["npm", "start"]
 ### Colors
 
 Edit the color scheme in your components using Tailwind classes:
+
 - Primary: `violet-500`, `violet-600`
 - Secondary: `indigo-500`, `indigo-600`
 

@@ -98,7 +98,7 @@ export default function ProjectsPage() {
                 {projects.map((project) => (
                   <Link
                     key={project.id}
-                    href={`/projects/${project.slug}`}
+                    href={`/fe/projects/${project.slug}`}
                     className="group relative rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden transition-all duration-500 hover:border-zinc-700 hover:shadow-2xl hover:shadow-violet-500/10 hover:-translate-y-2"
                   >
                     {/* Image */}
