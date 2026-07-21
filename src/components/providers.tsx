@@ -28,7 +28,7 @@ export function Providers({ children }: ProvidersProps) {
     <SessionProvider refetchInterval={5 * 60} refetchOnWindowFocus={true}>
       <ThemeProvider
         attribute="class"
-        defaultTheme="dark"
+        defaultTheme="light"
         enableSystem
         disableTransitionOnChange={false}
         storageKey="portfolio-theme"
