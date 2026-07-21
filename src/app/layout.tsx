@@ -11,11 +11,20 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Portfolio | Full Stack Developer",
-    template: "%s | Portfolio",
+    default: "Robil Dev | Full Stack Developer Portfolio", // Masukkan nama target di default
+    template: "%s | Robil Dev", // Template untuk halaman lain
   },
-  description: "A professional portfolio showcasing projects, skills, and experience in full-stack development.",
-  keywords: ["portfolio", "developer", "full-stack", "web development", "react", "next.js"],
+  description: "Welcome to the professional portfolio of Robil, a Full Stack Developer specializing in React, Next.js, and web development. Discover my projects and skills.", // Masukkan nama dan profesi
+  keywords: [
+    "Robil", 
+    "Robil Dev", 
+    "Robil Full Stack Developer", 
+    "portfolio", 
+    "developer", 
+    "web development", 
+    "react", 
+    "next.js"
+  ], // Tambahkan variasi keyword nama Anda
   authors: [{ name: "Robil" }],
   creator: "Robil",
   icons: {
@@ -29,18 +38,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://robil.dev.com",
-    title: "Portfolio | Full Stack Developer",
-    description: "A professional portfolio showcasing projects, skills, and experience.",
-    siteName: "Portfolio",
+    url: "https://robil.chatbotdev.online",
+    title: "Robil Dev | Full Stack Developer",
+    description: "Explore the professional portfolio, projects, and skills of Robil, a Full-Stack Developer.",
+    siteName: "Robil Dev Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Portfolio | Full Stack Developer",
-    description: "A professional portfolio showcasing projects, skills, and experience.",
+    title: "Robil Dev | Full Stack Developer",
+    description: "Explore the professional portfolio, projects, and skills of Robil, a Full-Stack Developer.",
   },
   robots: {
-    index: true,
+    index: true, // Sudah benar agar Google mengindeks situs Anda
     follow: true,
   },
 };
