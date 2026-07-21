@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { useProject, useIncrementProjectViews } from "@/hooks/fe/useApi"
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Loader2, Eye } from "lucide-react"
@@ -72,7 +73,7 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-violet-600 to-cyan-600 text-white hover:shadow-lg hover:shadow-violet-500/30 transition-all"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-violet-600 to-cyan-600 text-white hover:shadow-lg hover:shadow-violet-500/30 transition-all"
               >
                 <ExternalLink className="h-4 w-4" />
                 <span className="hidden sm:inline">Live Demo</span>
@@ -88,7 +89,7 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
           {/* Header */}
           <div className="mb-12">
             <div className="flex flex-wrap items-center gap-4 mb-6">
-              <span className={`inline-flex items-center rounded-full bg-gradient-to-r ${project.color || 'from-violet-500 to-purple-600'} px-4 py-1.5 text-sm font-semibold text-white`}>
+              <span className={`inline-flex items-center rounded-full bg-linear-to-r ${project.color || 'from-violet-500 to-purple-600'} px-4 py-1.5 text-sm font-semibold text-white`}>
                 {project.category}
               </span>
               <div className="flex items-center gap-2 text-zinc-500">
@@ -139,10 +140,12 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
 
           {/* Main Image */}
           <div className="relative aspect-video rounded-3xl overflow-hidden mb-16 border border-zinc-800">
-            <img
+            <Image
               src={project.thumbnail}
               alt={project.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              unoptimized
             />
           </div>
 
@@ -204,10 +207,12 @@ export default function ProjectDetailPage({ params }: { params: { slug: string }
                         key={index} 
                         className="relative aspect-video rounded-2xl overflow-hidden border border-zinc-800"
                       >
-                        <img
+                        <Image
                           src={image}
                           alt={`${project.title} screenshot ${index + 1}`}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          unoptimized
                         />
                       </div>
                     ))}
