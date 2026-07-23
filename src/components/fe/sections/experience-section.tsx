@@ -20,6 +20,7 @@ export function ExperienceSection({ experiences, education, t }: ExperienceSecti
     ...(experiences || []).map((exp) => ({
       id: `exp-${exp.id}`,
       title: exp.title,
+      position: "Senior Full Stack Developer",
       company: exp.company,
       period: `${new Date(exp.startDate).getFullYear()} - ${exp.isCurrent ? "Present" : new Date(exp.endDate!).getFullYear()}`,
       description: exp.description,
@@ -28,6 +29,7 @@ export function ExperienceSection({ experiences, education, t }: ExperienceSecti
     ...(education || []).map((edu) => ({
       id: `edu-${edu.id}`,
       title: edu.degree,
+      position: null,
       company: edu.institution,
       period: `${new Date(edu.startDate).getFullYear()} - ${edu.isCurrent ? "Present" : new Date(edu.endDate!).getFullYear()}`,
       description: `${edu.field}${edu.gpa ? ` • GPA: ${edu.gpa}` : ""}`,
@@ -57,13 +59,27 @@ export function ExperienceSection({ experiences, education, t }: ExperienceSecti
             </div>
             
             <div className="flex-1">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2">
-                <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">{item.title}</h3>
-                <span className="inline-flex items-center gap-1.5 text-xs font-medium text-zinc-500 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 px-2.5 py-1 rounded-full">
+              {/* Kontainer atas diubah agar menampung title dan position sejajar dengan tahun */}
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-2 gap-4">
+                <div>
+                  {item.title && (
+                    <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">
+                      {item.title}
+                    </h3>
+                  )}
+                  {item.position && (
+                    <h3 className={`font-semibold text-black-600 dark:text-violet-400 ${!item.title ? 'text-xl' : 'text-base mt-1'}`}>
+                      {item.position}
+                    </h3>
+                  )}
+                </div>
+                
+                <span className="inline-flex shrink-0 items-center gap-1.5 text-xs font-medium text-zinc-500 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 px-2.5 py-1 rounded-full mt-1 sm:mt-0">
                   <Calendar className="h-3 w-3" />
                   {item.period}
                 </span>
               </div>
+              
               <p className="text-sm font-medium text-zinc-900 dark:text-zinc-300 mb-3">{item.company}</p>
               <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{item.description}</p>
             </div>
