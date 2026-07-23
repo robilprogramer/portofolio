@@ -3,7 +3,8 @@
 import { useState } from "react"
 import Link from "next/link"
 import { useProjects } from "@/hooks/fe/useApi"
-import { ArrowLeft, ArrowRight, ExternalLink, Github, Loader2, Layers } from "lucide-react"
+import { ArrowLeft, ArrowRight, Loader2, Layers } from "lucide-react"
+import Image from "next/image"
 
 export default function ProjectsPage() {
   const [page, setPage] = useState(1)
@@ -17,10 +18,10 @@ export default function ProjectsPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center p-6">
+      <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex items-center justify-center p-6">
         <div className="text-center">
-          <p className="text-red-400">Failed to load projects</p>
-          <Link href="/" className="text-violet-400 hover:text-violet-300 mt-4 inline-block">
+          <p className="text-red-600 dark:text-red-400">Failed to load projects</p>
+          <Link href="/" className="text-violet-600 dark:text-violet-400 hover:text-violet-700 dark:hover:text-violet-300 mt-4 inline-block">
             ← Back to Home
           </Link>
         </div>
@@ -32,11 +33,11 @@ export default function ProjectsPage() {
   const pagination = data?.pagination
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100">
+    <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 selection:bg-zinc-200 dark:selection:bg-zinc-800">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-800/50">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800/50">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
-          <Link href="/" className="flex items-center gap-2 text-zinc-300 hover:text-white transition-colors">
+          <Link href="/" className="flex items-center gap-2 text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white transition-colors">
             <ArrowLeft className="h-5 w-5" />
             Back to Home
           </Link>
@@ -48,14 +49,14 @@ export default function ProjectsPage() {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <span className="inline-flex items-center gap-2 text-violet-400 text-sm font-semibold uppercase tracking-widest">
+            <span className="inline-flex items-center gap-2 text-violet-600 dark:text-violet-400 text-sm font-semibold uppercase tracking-widest">
               <Layers className="h-4 w-4" />
               Portfolio
             </span>
             <h1 className="mt-4 text-4xl sm:text-6xl font-black">
-              All <span className="text-zinc-500">Projects</span>
+              All <span className="text-zinc-500 dark:text-zinc-400">Projects</span>
             </h1>
-            <p className="mt-6 text-lg text-zinc-400 max-w-2xl mx-auto">
+            <p className="mt-6 text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
               Explore my complete portfolio of projects across different technologies and domains.
             </p>
           </div>
@@ -67,7 +68,7 @@ export default function ProjectsPage() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 !categoryFilter
                   ? 'bg-violet-600 text-white'
-                  : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'
+                  : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700'
               }`}
             >
               All
@@ -79,7 +80,7 @@ export default function ProjectsPage() {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   categoryFilter === category
                     ? 'bg-violet-600 text-white'
-                    : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700'
+                    : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700'
                 }`}
               >
                 {category}
@@ -98,50 +99,51 @@ export default function ProjectsPage() {
                 {projects.map((project) => (
                   <Link
                     key={project.id}
-                    href={`/fe/projects/${project.slug}`}
-                    className="group relative rounded-3xl bg-zinc-900 border border-zinc-800 overflow-hidden transition-all duration-500 hover:border-zinc-700 hover:shadow-2xl hover:shadow-violet-500/10 hover:-translate-y-2"
+                    href={`/projects/${project.slug}`}
+                    className="group relative rounded-3xl bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 overflow-hidden transition-all duration-500 hover:border-violet-500/50 dark:hover:border-zinc-700 hover:shadow-2xl hover:shadow-violet-500/10 hover:-translate-y-2"
                   >
                     {/* Image */}
-                    <div className="relative aspect-video overflow-hidden">
-                      <img
+                    <div className="relative aspect-video overflow-hidden border-b border-zinc-200 dark:border-zinc-800">
+                      <Image
+                        fill
                         src={project.thumbnail}
                         alt={project.title}
                         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-zinc-900/50 to-transparent" />
+                      <div className="absolute inset-0 bg-linear-to-t from-zinc-50 dark:from-zinc-900 via-zinc-50/50 dark:via-zinc-900/50 to-transparent" />
                       
                       {/* Category Badge */}
                       <div className="absolute top-4 left-4">
-                        <span className={`inline-flex items-center rounded-full bg-gradient-to-r ${project.color || 'from-violet-500 to-purple-600'} px-3 py-1 text-xs font-semibold text-white`}>
+                        <span className={`inline-flex items-center rounded-full bg-linear-to-r ${project.color || 'from-violet-500 to-purple-600'} px-3 py-1 text-xs font-semibold text-white`}>
                           {project.category}
                         </span>
                       </div>
 
                       {/* View Count */}
-                      <div className="absolute top-4 right-4 bg-zinc-900/80 backdrop-blur-sm rounded-full px-3 py-1 text-xs text-zinc-400">
+                      <div className="absolute top-4 right-4 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm rounded-full px-3 py-1 text-xs text-zinc-600 dark:text-zinc-400 shadow-sm">
                         {project.viewCount} views
                       </div>
                     </div>
 
                     {/* Content */}
                     <div className="p-6 space-y-4">
-                      <h3 className="text-xl font-bold text-white group-hover:text-violet-400 transition-colors">
+                      <h3 className="text-xl font-bold text-zinc-900 dark:text-white group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">
                         {project.title}
                       </h3>
-                      <p className="text-sm text-zinc-400 line-clamp-2">
+                      <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2">
                         {project.shortDesc}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {project.techStack.slice(0, 3).map((tech) => (
                           <span
                             key={tech}
-                            className="inline-flex items-center rounded-lg bg-zinc-800 px-2.5 py-1 text-xs font-medium text-zinc-400"
+                            className="inline-flex items-center rounded-lg bg-zinc-200 dark:bg-zinc-800 px-2.5 py-1 text-xs font-medium text-zinc-700 dark:text-zinc-400"
                           >
                             {tech}
                           </span>
                         ))}
                         {project.techStack.length > 3 && (
-                          <span className="inline-flex items-center rounded-lg bg-zinc-800 px-2.5 py-1 text-xs font-medium text-zinc-400">
+                          <span className="inline-flex items-center rounded-lg bg-zinc-200 dark:bg-zinc-800 px-2.5 py-1 text-xs font-medium text-zinc-700 dark:text-zinc-400">
                             +{project.techStack.length - 3}
                           </span>
                         )}
@@ -157,7 +159,7 @@ export default function ProjectsPage() {
                   <button
                     onClick={() => setPage(p => Math.max(1, p - 1))}
                     disabled={page === 1}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 disabled:opacity-50 disabled:cursor-not-allowed hover:border-violet-500/50 hover:text-white transition-all"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 disabled:opacity-50 disabled:cursor-not-allowed hover:border-violet-500/50 hover:text-zinc-900 dark:hover:text-white transition-all"
                   >
                     <ArrowLeft className="h-4 w-4" />
                     Previous
@@ -171,7 +173,7 @@ export default function ProjectsPage() {
                         className={`w-10 h-10 rounded-full font-medium transition-all ${
                           p === page
                             ? 'bg-violet-600 text-white'
-                            : 'bg-zinc-900 text-zinc-400 hover:bg-zinc-800'
+                            : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800'
                         }`}
                       >
                         {p}
@@ -182,7 +184,7 @@ export default function ProjectsPage() {
                   <button
                     onClick={() => setPage(p => Math.min(pagination.totalPages, p + 1))}
                     disabled={page === pagination.totalPages}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-800 bg-zinc-900 text-zinc-400 disabled:opacity-50 disabled:cursor-not-allowed hover:border-violet-500/50 hover:text-white transition-all"
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 disabled:opacity-50 disabled:cursor-not-allowed hover:border-violet-500/50 hover:text-zinc-900 dark:hover:text-white transition-all"
                   >
                     Next
                     <ArrowRight className="h-4 w-4" />
@@ -192,7 +194,7 @@ export default function ProjectsPage() {
             </>
           ) : (
             <div className="text-center py-20">
-              <p className="text-zinc-500">No projects found for this category.</p>
+              <p className="text-zinc-500 dark:text-zinc-400">No projects found for this category.</p>
             </div>
           )}
         </div>

@@ -17,6 +17,7 @@ import {
   SiteSettings,
   AnalyticsFilters,
   PaginatedResponse,
+  AnalyticsStats,
 } from '@/types/fe'
 import { api } from '@/lib/fe/api'
 
@@ -286,7 +287,7 @@ export function useSiteSettings(options?: UseQueryOptions<SiteSettings>) {
 
 export function useAnalyticsStats(
   filters?: AnalyticsFilters,
-  options?: UseQueryOptions<any>
+  options?: UseQueryOptions<AnalyticsStats>
 ) {
   return useQuery({
     queryKey: queryKeys.analytics(filters),

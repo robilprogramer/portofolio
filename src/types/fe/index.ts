@@ -72,6 +72,7 @@ export interface Project {
   color?: string
   createdAt: string
   updatedAt: string
+  description:string
 }
 
 export interface ProjectFilters {
@@ -284,7 +285,7 @@ export interface SiteSettings {
   googleAnalyticsId?: string
   maintenanceMode?: boolean
   allowContactForm?: boolean
-  [key: string]: any
+  [key: string]: unknown
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -314,3 +315,4 @@ export interface AnalyticsFilters {
   days?: number
   path?: string
 }
+
