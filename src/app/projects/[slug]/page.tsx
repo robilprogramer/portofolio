@@ -147,7 +147,7 @@ export default function ProjectDetailPage({ params }: { params: Promise<{ slug: 
               src={project.thumbnail}
               alt={project.title}
               fill
-              className="object-cover"
+              className="object-contain"
               unoptimized
             />
           </div>
